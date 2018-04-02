@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7/css/bootstrap.min.css">
+    <style>
+        .well a{
+            display: inline-block;
+            text-decoration: none;
+            border: 1px solid black;
+            padding: 3px 6px;
+        }
+        .well a.active{
+            background-color: #336699;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+<h3>数据展示</h3>
+    {% if model_list.group_filter %}
+        <div class="well">
+        <h5>组合查询</h5>
+        {% for li in model_list.get_group_filter %}
+            <div>
+                {% for item in li %}
+                    <span>{{ item }}</span>
+                 {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div style="margin-top: 10px">
+        <a role="button" class="btn btn-primary" href="{{ add_url }}">添加</a>
+    </div>
+
+    {% if model_list.search_fields %}
+        <form class="form-inline" method="get" action="" style="margin-top: 10px">
+            <div class="input-group pull-right">
+                <input type="text" name="{{ model_list.search_key }}" value="{{ model_list.search_val }}" class="form-control" id="search" placeholder="请输入查询条件">
+                <span class="input-group-btn" style="padding-left: 8px">
+                    <button type="submit" class="btn btn-danger">搜索</button>
+                </span>
+            </div>
+        </form>
+    {% endif %}
+
+    <form class="form-inline" style="margin-top: 10px" method="post" action="">
+        {% csrf_token %}
+        <div class="input-group">
+            <select name="action" class="form-control action-select">
+                <option value="">--------请选择--------</option>
+                {% for func_dict in model_list.handle_actions %}
+                    <option value="{{ func_dict.name }}">{{ func_dict.desc }}</option>
+                {% endfor %}
+            </select>
+            <span class="input-group-btn">
+                <button style="margin-left: 5px" type="submit" class="btn btn-success multi-btn">Go</button>
+            </span>
+        </div>
+        <div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    {% for head in model_list.get_head %}
+                        <td>{{ head }}</td>
+                    {% endfor %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for data in model_list.get_data %}
+                    <tr>
+                        {% for item in data %}
+                            <td>{{ item }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </form>
+
+    <div class="pull-right">
+        <a role="button" class="btn btn-default" href="{{ list_url }}">刷新页面</a>
+    </div>
+
+    <div class="row">
+        <nav class="col-md-offset-3 col-md-6">
+            <ul class="pagination pagination-sm">
+                {{ model_list.page.page_http|safe }}
+            </ul>
+        </nav>
+    </div>
+
+
+</div>
+<script src="/static/js/jquery-3.2.1.min.js"></script>
+<script src="/static/js/jquery.cookie.js"></script>
+<script src="/static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script src="/static/js/multi_action.js"></script>
+</body>
+</html>

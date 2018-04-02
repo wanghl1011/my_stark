@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+<h3>DELETE   {{ model_name }}</h3>
+
+<form class="form-horizontal" method="post" action="" novalidate>
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-3">
+                <h4 style="color:red;">想好了吗？真删？</h4>
+            </div>
+        </div>
+        <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-3">
+            <input role="button" value="想好了" type="submit" class="btn btn-primary btn-block" id="popup-submit" >
+        </div>
+        </div>
+
+</form>
+
+
+
+<script src="/static/js/jquery-3.2.1.min.js"></script>
+<script src="/static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

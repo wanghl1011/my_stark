@@ -1,0 +1,22 @@
+<form class="form-horizontal" method="post" action="" novalidate>
+    {% csrf_token %}
+    {% for field in form_info %}
+        <div class="form-group">
+            <label for="" class="col-sm-3 control-label">{{ field.form.label }}</label>
+            <div class="col-sm-5">
+                {{ field.form }}
+                {% if field.is_pop_up %}
+                    <span><a role="button" onclick="pop_up('{{ field.url }}')"><span
+                            class="glyphicon glyphicon-plus"></span></a></span>
+                {% endif %}
+                <span style="color: red">{{ field.form.errors.0 }}</span>
+            </div>
+        </div>
+    {% endfor %}
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-3">
+            <input role="button" type="submit" class="btn btn-primary btn-block" id="popup-submit">
+        </div>
+        <div id="popup-captcha"></div>
+    </div>
+</form>

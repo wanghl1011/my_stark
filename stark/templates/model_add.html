@@ -1,0 +1,74 @@
+{% load my_sinple_tags %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7/css/bootstrap.min.css">
+    <style>
+        .form-horizontal input[type="text"], input[type="date"], input[type="number"], select {
+            display: inline-block;
+            width: 80%;
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        }
+    </style>
+</head>
+<body>
+<h3>ADD {{ model_name }}</h3>
+{% get_form_info form %}
+
+{#<form class="form-horizontal" method="post" action="" novalidate>#}
+{#    {% csrf_token %}#}
+{#    {% for field in form_info %}#}
+{#        <div class="form-group">#}
+{#            <label for="" class="col-sm-3 control-label">{{ field.form.label }}</label>#}
+{#            <div class="col-sm-5">#}
+{#                {{ field.form }}#}
+{#                {% if field.is_pop_up %}#}
+{#                    <span><a role="button" onclick="pop_up('{{ field.url }}')"><span#}
+{#                            class="glyphicon glyphicon-plus"></span></a></span>#}
+{#                {% endif %}#}
+{#                <span style="color: red">{{ field.form.errors.0 }}</span>#}
+{#            </div>#}
+{#        </div>#}
+{#    {% endfor %}#}
+{#    <div class="form-group">#}
+{#        <div class="col-sm-offset-3 col-sm-3">#}
+{#            <input role="button" type="submit" class="btn btn-primary btn-block" id="popup-submit">#}
+{#        </div>#}
+{#        <div id="popup-captcha"></div>#}
+{#    </div>#}
+{#</form>#}
+
+
+<script src="/static/js/jquery-3.2.1.min.js"></script>
+<script src="/static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script>
+    function pop_up(url) {
+        window.open(url, url, "width:300,height:300")
+    }
+
+    function callback(ret) {
+        console.log(ret);
+        var select = document.getElementById(ret.pop_up_id);
+        var option = "<option selected value='" + ret.model_pk + "'>" + ret.model_name + "</option>";
+        $(select).append(option)
+    }
+</script>
+</body>
+</html>
